@@ -8,32 +8,33 @@ namespace ConsoleApp1.Ecosystem.Biotic
 {
     class Animal
     {
-        public Animal() { }
-
-        public int x;
-        public int y;
-        public bool isAlive;
-        public bool isCarnivore;
-        public string name;
-        public float health;
-        public float attack;
-        public float speed;
-        public float hunger;
-
-        public void GetHungry()
+        public Animal()
         {
-            hunger -= 10;
+
         }
 
-        protected void Eat(Animal prey)
+        public int x { get; set; }
+        public int y { get; set; }
+        public bool isAlive { get; set; }
+        public bool isCarnivore { get; set; }
+        public string name { get; set; }
+        public float health { get; set; }
+        public float attack { get; set; }
+        public float speed { get; set; }
+        public int age { get; set; }
+        public bool sex { get; set; } // 0 - female, 1 - male
+        public float hunger { get; set; }
+
+        virtual public void GetHungry()
         {
-            prey.isAlive = false;
-            hunger += 10;
         }
 
-        protected void Eat(Plant plant)
+        virtual public void Hunt(World world)
         {
-            
+        }
+
+        virtual public void Eat(World world)
+        {
         }
 
         protected void Die()
@@ -41,6 +42,9 @@ namespace ConsoleApp1.Ecosystem.Biotic
             isAlive = false;
         }
 
+        virtual public void SearchForEnemies(World world)
+        {        
+        }
 
 
     }

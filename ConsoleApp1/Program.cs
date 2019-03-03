@@ -14,23 +14,31 @@ namespace ConsoleApp1
         {
             EcoStructure ecoStructure = new EcoStructure();
             ecoStructure.CreateLife();
+            ecoStructure.CreatePlants();
 
-            for (int i = 0; i < ecoStructure.animals.Count(); i++) // sprawdzanko czy ładzia
+
+            for (int j = 0; j < 20; j++)
             {
-                Console.WriteLine("Animal: " +
-                    ecoStructure.animals[i].name + " at: x = " +
-                    ecoStructure.animals[i].x + ", y = " +
-                    ecoStructure.animals[i].y);
-            }
+                for (int i = 0; i < ecoStructure.world.animals.Count(); i++) // checking "logs" for each creature
+                {
+                    Console.WriteLine("Animal: " +
+                        ecoStructure.world.animals[i].name + " at: x = " +
+                        ecoStructure.world.animals[i].x + ", y = " +
+                        ecoStructure.world.animals[i].y + ", sex: " +
+                        ecoStructure.world.animals[i].sex + ", hunger: " +
+                        ecoStructure.world.animals[i].hunger);
+                }
 
-            for (int i = 0; i < ecoStructure.plants.Count(); i++)
-            {
-                Console.WriteLine("Plant: " +
-                    ecoStructure.plants[i].name + " at: x = " +
-                    ecoStructure.plants[i].x + ", y = " +
-                    ecoStructure.plants[i].y);
+                for (int i = 0; i < ecoStructure.world.plants.Count(); i++)
+                {
+                    Console.WriteLine("Plant: " +
+                        ecoStructure.world.plants[i].name + " at: x = " +
+                        ecoStructure.world.plants[i].x + ", y = " +
+                        ecoStructure.world.plants[i].y);
+                }
+                Console.WriteLine("-----------------------------------------");
+                ecoStructure.Action();
             }
-
             Console.ReadLine();
         }
     }

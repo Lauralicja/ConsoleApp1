@@ -9,35 +9,87 @@ namespace ConsoleApp1.Ecosystem
 {
     class EcoStructure
     {
-
-        public List<Animal> animals = new List<Animal>();
-        public List<Plant> plants = new List<Plant>();
+        public World world = new World();
         Random randomizer = new Random();
+        Animal animal = new Animal();
 
         public int CreateAnimal()
         {
             return randomizer.Next(0, 2);
         }
 
+        public int GenerateX()
+        {
+            return randomizer.Next(1, world.sizeX);
+        }
+
+        public int GenerateY()
+        {
+            return randomizer.Next(1, world.sizeY);
+        }
+
+        public bool GenerateSex()
+        {
+            int which = randomizer.Next(0, 2);
+            if (which == 0) return false;
+            else return true;
+        }
+
         public void CreateLife()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 4; i++)
             {
                 int which = CreateAnimal();
                 Wolf wolf = new Wolf();
                 Deer deer = new Deer();
+
+                int x = GenerateX();
+                int y = GenerateY();
+                bool sex = GenerateSex();
+
+                if (which == 0)
+                {
+                    wolf.x = x;
+                    wolf.y = y;
+                    wolf.sex = sex; 
+                    world.animals.Add(wolf);
+                }
+                else
+                {
+                    deer.x = x;
+                    deer.y = y;
+                    deer.sex = sex;
+                    world.animals.Add(deer);
+                }
+            }
+        }
+
+        public void CreatePlants()
+        {
+            for (int i = 0; i < 5; i++)
+            {
                 Grass grass = new Grass();
 
-                if (which == 0) animals.Add(wolf);
-                else animals.Add(deer);
-                plants.Add(grass);
+                int x = GenerateX();
+                int y = GenerateY();
+
+                grass.x = x;
+                grass.y = y;
+                world.plants.Add(grass);
             }
         }
 
 
 
-
-
+        public void Action()
+        {
+            for(int i  = 0; i < world.animals.Count; i++)
+            {
+                world.animals[i].GetHungry();
+                world.animals[i].SearchForEnemies(world);
+                world.animals[i].Hunt(world);
+            }
+        }
 
     }
 }
