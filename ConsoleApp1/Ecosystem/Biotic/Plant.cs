@@ -10,7 +10,7 @@ namespace ConsoleApp1.Ecosystem.Biotic
     class Plant
     {
         public Plant() { }
-
+        public Brush colour;
         public bool isAlive;
         public string name;
         public float nutrients;
@@ -43,7 +43,12 @@ namespace ConsoleApp1.Ecosystem.Biotic
             else return true;
         }
 
-        virtual public void PaintPlant(Graphics graphics) { }
+        public void PaintPlant(Graphics graphics)
+        {
+            Rectangle rectangle = new Rectangle(x, y, 1, 1);
+            graphics.DrawRectangle(Pens.Green, rectangle);
+            graphics.FillRectangle(Brushes.Green, rectangle);
+        }
 
     }
 }

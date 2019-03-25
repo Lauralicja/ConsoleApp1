@@ -15,6 +15,7 @@ namespace ConsoleApp1.Ecosystem.Biotic
 
         }
 
+        public Brush colour { get; set; }
         public int x { get; set; }
         public int y { get; set; }
         public bool isAlive { get; set; }
@@ -54,7 +55,13 @@ namespace ConsoleApp1.Ecosystem.Biotic
         {        
         }
 
-        virtual public void PaintAnimal(Graphics graphics) { }
+        public void PaintAnimal(Graphics graphics)
+        {
+            Rectangle rectangle = new Rectangle(x, y, 10, 10);
+            Pen pen = new Pen(colour);
+            graphics.DrawRectangle(pen, rectangle);
+            graphics.FillRectangle(colour, rectangle);
+        }
 
     }
 }

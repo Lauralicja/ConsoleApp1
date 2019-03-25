@@ -13,6 +13,7 @@ namespace ConsoleApp1.Ecosystem.Biotic.Plants
 
         public Grass()
         {
+            colour = Brushes.Green;
             name = "Grass";
             nutrients = 5.0f;
             speedOfGrowth = 0.5f;
@@ -57,15 +58,6 @@ namespace ConsoleApp1.Ecosystem.Biotic.Plants
 
             }
         }
-
-
-        public override void PaintPlant(Graphics graphics)
-        {
-            Rectangle rectangle = new Rectangle(x, y, 5, 5);
-            graphics.DrawRectangle(Pens.Green, rectangle);
-            graphics.FillRectangle(Brushes.Green, rectangle);
-        }
-
 
 
     }

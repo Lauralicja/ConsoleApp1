@@ -10,8 +10,8 @@ namespace ConsoleApp1.Ecosystem
 {
     class World
     {
-        public int sizeX = 150;
-        public int sizeY = 150;
+        public int sizeX = 250;
+        public int sizeY = 250;
         public List<Animal> animals = new List<Animal>();
         public List<Plant> plants = new List<Plant>();
 

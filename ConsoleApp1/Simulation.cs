@@ -11,11 +11,7 @@ namespace ConsoleApp1
         [STAThread]
         static void Main(string[] args)
         {
-            
-           // creations.WriteLogsInConsole();
-            
             WindowHandler windowHandler = new WindowHandler();
-            // windowHandler.MakeSquares(ecoStructure);
             Application.EnableVisualStyles();
             Application.Run(windowHandler);
 

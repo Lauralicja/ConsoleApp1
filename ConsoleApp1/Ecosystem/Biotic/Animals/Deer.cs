@@ -12,6 +12,7 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
 
         public Deer()
         {
+            colour = Brushes.Brown;
             name = "Deer";
             health = 100.0f;
             attack = 12.0f;
@@ -97,12 +98,6 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
             hunger -= 5;
         }
 
-        public override void PaintAnimal(Graphics graphics)
-        {
-            Rectangle rectangle = new Rectangle(x, y, 10, 10);
-            graphics.DrawRectangle(Pens.Brown, rectangle);
-            graphics.FillRectangle(Brushes.Brown, rectangle);
-        }
 
     }
     }

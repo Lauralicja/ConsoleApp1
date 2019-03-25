@@ -13,60 +13,85 @@ namespace ConsoleApp1.Ecosystem
 
     class WindowHandler : Form
     {
-        public int sizeX = 600;
-        public int sizeY = 400;
-        public Button nextStep;
-        private List<Rectangle> objects = new List<Rectangle>();
+        private Timer timer1 = new Timer();
+        public int sizeX = 300;
+        public int sizeY = 200;
+        private Size buttonSize = new Size(80, 40);
+        private Button startSimulation;
+        private Button stopSimulation;
+        private Button nextStep;
         Creations creations = new Creations();
+        Graphics dc;
 
         public WindowHandler()
         {
-            this.Size = new Size(sizeX, sizeY);
+            dc = this.CreateGraphics();
+            this.Size = new Size(2*sizeX, 2*sizeY);
+            startSimulation = new Button
+            {
+                Size = buttonSize,
+                Location = new Point(sizeX, sizeY),
+                Text = "Start Simulation"
+            };
+            stopSimulation = new Button
+            {
+                Size = buttonSize,
+                Location = new Point(sizeX, sizeY + 40),
+                Text = "Stop Simulation"
+            };
             nextStep = new Button
             {
-                Size = new Size(80, 40),
-                Location = new Point(sizeX, sizeY),
-                Text = "Next step"
+                Size = buttonSize,
+                Location = new Point(sizeX, sizeY + 80),
+                Text = "Next Step"
             };
+
+
+            this.Controls.Add(startSimulation);
+            this.Controls.Add(stopSimulation);
             this.Controls.Add(nextStep);
-            nextStep.Click += new EventHandler(ButtonClick);
-            
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 100;
+            startSimulation.Click += new EventHandler(TimerClick); // works for timer rach 0.1 second
+            stopSimulation.Click += new EventHandler(StopAnimationClick);
+            nextStep.Click += new EventHandler(NextStepClick);
         }
 
-        private void ButtonClick(object sender, EventArgs e)
+        private void CreationsMethods()
         {
-            this.Refresh();
-            Pen Bluepen = new Pen(Color.Blue, 3);
-            Graphics dc = this.CreateGraphics();
-            creations.ecoStructure.Action();
             creations.WriteLogsInConsole();
             creations.PaintAllAnimals(dc);
             creations.PaintAllPlants(dc);
         }
 
-        private void ShowNextStep(object sender, PaintEventArgs e)
+        private void NextStepClick(object sender, EventArgs e)
         {
-            foreach (var rectangle in this.objects)
-            {
-                e.Graphics.DrawRectangle(Pens.Black, rectangle);
-            }
+            this.Refresh();
+            this.timer1.Stop();
+            creations.ecoStructure.Action();
+            CreationsMethods();
         }
 
-        public void MakeSquares(EcoStructure ecostructure)
+        private void StopAnimationClick(object sender, EventArgs e)
         {
-            int animalCounter = ecostructure.world.animals.Count();
-            int plantsCounter = ecostructure.world.plants.Count();
-
-            for(int i = 0; i < animalCounter; i++)
-            {
-                Rectangle rect = new Rectangle
-                {
-                    Location = new Point(ecostructure.world.animals[i].x, ecostructure.world.animals[i].y),
-                    Size = new Size(10, 10)
-                };
-                objects.Add(rect);
-            }
+            this.Refresh();
+            this.timer1.Stop();
+            CreationsMethods();
         }
+
+        private void TimerClick(object sender, EventArgs e)
+        {
+            if (!timer1.Enabled) timer1.Start();
+            this.timer1.Tick += new EventHandler(ButtonClick);
+        }
+
+        private void ButtonClick(object sender, EventArgs e)
+        {
+            this.Refresh();
+            creations.ecoStructure.Action();
+            CreationsMethods();
+        }
+
 
         private void InitializeComponent()
         {

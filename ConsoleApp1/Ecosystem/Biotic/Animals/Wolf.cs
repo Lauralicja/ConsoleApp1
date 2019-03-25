@@ -12,6 +12,7 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
        
         public Wolf()
         {
+            colour = Brushes.Gray;
             name = "Wolf";
             health = 100.0f;
             attack = 12.0f;
@@ -76,12 +77,6 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
             hunger -= 10;
         }
 
-        public override void PaintAnimal(Graphics graphics)
-        {
-            Rectangle rectangle = new Rectangle(x, y, 10, 10);
-            graphics.DrawRectangle(Pens.Gray, rectangle);
-            graphics.FillRectangle(Brushes.Gray, rectangle);
-        }
 
     }
 }

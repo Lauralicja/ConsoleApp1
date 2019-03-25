@@ -36,7 +36,7 @@ namespace ConsoleApp1.Ecosystem
 
         public void CreateLife()
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 10; i++)
             {
                 int which = CreateAnimal();
                 Wolf wolf = new Wolf();
@@ -65,7 +65,7 @@ namespace ConsoleApp1.Ecosystem
 
         public void CreatePlants()
         {
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Grass grass = new Grass();
 
