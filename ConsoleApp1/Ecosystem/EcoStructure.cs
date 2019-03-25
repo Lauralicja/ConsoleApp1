@@ -11,7 +11,6 @@ namespace ConsoleApp1.Ecosystem
     {
         public World world = new World();
         Random randomizer = new Random();
-        Animal animal = new Animal();
 
         public int CreateAnimal()
         {
@@ -52,21 +51,21 @@ namespace ConsoleApp1.Ecosystem
                     wolf.x = x;
                     wolf.y = y;
                     wolf.sex = sex; 
-                    world.animals.Add(wolf);
+                    world.AddAnimal(wolf);
                 }
                 else
                 {
                     deer.x = x;
                     deer.y = y;
                     deer.sex = sex;
-                    world.animals.Add(deer);
+                    world.AddAnimal(deer);
                 }
             }
         }
 
         public void CreatePlants()
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 1; i++)
             {
                 Grass grass = new Grass();
 
@@ -85,11 +84,25 @@ namespace ConsoleApp1.Ecosystem
         {
             for(int i  = 0; i < world.animals.Count; i++)
             {
-                world.animals[i].GetHungry();
-                world.animals[i].SearchForEnemies(world);
-                world.animals[i].Hunt(world);
+                if (world.animals[i].isAlive)
+                {
+                    world.animals[i].GetHungry();
+                    world.animals[i].SearchForEnemies(world);
+                    world.animals[i].Hunt(world);
+                    world.animals[i].Age();
+                }
+            }
+            for(int i = 0; i < world.plants.Count; i++)
+            {
+                world.plants[i].Grow(world);
+                world.plants[i].Age();
             }
         }
+
+
+
+
+
 
     }
 }

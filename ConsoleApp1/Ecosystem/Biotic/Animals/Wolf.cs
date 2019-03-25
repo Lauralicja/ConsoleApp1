@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,25 +34,31 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
                     {
                         if (Math.Pow(preyX - x, 2) + Math.Pow(preyY - y, 2) >= closest) // temporary -> without any obstacles and in straight line
                         {
+                            
                             if(x > preyX)
                             {
-                                x--;
+                                if (x == 1) x = 1;
+                                else x--;
                             }
                             else
                             {
-                                x++;
+                                if (x == world.sizeX) x = world.sizeX;
+                                else x++;
                             }
                             if (y > preyY)
                             {
-                                y--;
+                                if (y == 1) y = 1;
+                                else y--;
                             }
                             else
                             {
-                                y++;
+                                if (y == world.sizeY) y = world.sizeY;
+                                else y++;
                             }
                             if(x == preyX && y == preyY)
                             {
                                 Eat(world);
+                                world.animals.Remove(world.animals[j]);
                             }
                         }
                     }
@@ -69,6 +76,12 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
             hunger -= 10;
         }
 
+        public override void PaintAnimal(Graphics graphics)
+        {
+            Rectangle rectangle = new Rectangle(x, y, 10, 10);
+            graphics.DrawRectangle(Pens.Gray, rectangle);
+            graphics.FillRectangle(Brushes.Gray, rectangle);
+        }
 
     }
 }

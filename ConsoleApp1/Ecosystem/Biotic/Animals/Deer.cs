@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,11 +28,11 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
                 {
                     if (world.animals[j].name == "Wolf")
                     {
-                        if (Math.Abs(world.animals[j].x - x) <= 2)
+                        if (Math.Abs(world.animals[j].x - x) <= 10)
                         {
                            x++;
                         }
-                        if (Math.Abs(world.animals[j].y - y) <= 2)
+                        if (Math.Abs(world.animals[j].y - y) <= 10)
                         {
                             y++;
                         }
@@ -39,7 +40,7 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
                 }
             }
 
-        public override void Hunt(World world) // doubled code -> gotta change it
+        public override void Hunt(World world) // duplicated code -> gotta change it
         {
             if (hunger <= 80.0f)
             {
@@ -57,23 +58,28 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
                             closest = (int)distance;
                             if (x > preyX)
                             {
-                                x--;
+                                if (x == 1) x = 1;
+                                else x--;
                             }
                             else
                             {
-                                x++;
+                                if (x == world.sizeX) x = world.sizeX;
+                                else x++;
                             }
                             if (y > preyY)
                             {
-                                y--;
+                                if (y == 1) y = 1;
+                                else y--;
                             }
                             else
                             {
-                                y++;
+                                if (y == world.sizeY) y = world.sizeY;
+                                else y++;
                             }
-                            if(x == preyX && y == preyY)
+                            if (x == preyX && y == preyY)
                             {
                                 Eat(world);
+                                world.plants.Remove(world.plants[j]);
                             }
                         }
                     }
@@ -89,6 +95,13 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
         override public void GetHungry()
         {
             hunger -= 5;
+        }
+
+        public override void PaintAnimal(Graphics graphics)
+        {
+            Rectangle rectangle = new Rectangle(x, y, 10, 10);
+            graphics.DrawRectangle(Pens.Brown, rectangle);
+            graphics.FillRectangle(Brushes.Brown, rectangle);
         }
 
     }

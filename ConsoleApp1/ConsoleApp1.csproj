@@ -32,14 +32,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ecosystem\Biotic\Animal.cs" />
@@ -48,10 +55,14 @@
     <Compile Include="Ecosystem\Biotic\Animals\Wolf.cs" />
     <Compile Include="Ecosystem\Biotic\Plant.cs" />
     <Compile Include="Ecosystem\Biotic\Plants\Grass.cs" />
+    <Compile Include="Ecosystem\Creations.cs" />
     <Compile Include="Ecosystem\EcoStructure.cs" />
+    <Compile Include="Ecosystem\WindowHandler.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Ecosystem\World.cs" />
     <Compile Include="Mathematics\Equations.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Simulation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +70,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Ecosystem\Abiotic\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ecosystem\WindowHandler.resx">
+      <DependentUpon>WindowHandler.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

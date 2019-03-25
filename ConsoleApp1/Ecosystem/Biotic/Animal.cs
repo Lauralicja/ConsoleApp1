@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//using System.Windows;
 
 namespace ConsoleApp1.Ecosystem.Biotic
 {
@@ -24,6 +26,7 @@ namespace ConsoleApp1.Ecosystem.Biotic
         public int age { get; set; }
         public bool sex { get; set; } // 0 - female, 1 - male
         public float hunger { get; set; }
+      //  public 
 
         virtual public void GetHungry()
         {
@@ -37,6 +40,11 @@ namespace ConsoleApp1.Ecosystem.Biotic
         {
         }
 
+        virtual public void Age()
+        {
+            age++;
+        }
+
         protected void Die()
         {
             isAlive = false;
@@ -46,6 +54,7 @@ namespace ConsoleApp1.Ecosystem.Biotic
         {        
         }
 
+        virtual public void PaintAnimal(Graphics graphics) { }
 
     }
 }
