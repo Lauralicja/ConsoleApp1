@@ -13,36 +13,40 @@ namespace ConsoleApp1.Ecosystem
 
     class WindowHandler : Form
     {
-        private Timer timer1 = new Timer();
-        public int sizeX = 300;
-        public int sizeY = 200;
+        private Timer timer = new Timer();
+        public int sizeX = 800;
+        public int sizeY = 600;
         private Size buttonSize = new Size(80, 40);
         private Button startSimulation;
         private Button stopSimulation;
         private Button nextStep;
+        private int distanceButtons = 40;
+        private PictureBox picBox = new PictureBox();
         Creations creations = new Creations();
         Graphics dc;
 
         public WindowHandler()
         {
-            dc = this.CreateGraphics();
-            this.Size = new Size(2*sizeX, 2*sizeY);
+            picBox.Dock = DockStyle.Fill;
+            picBox.BackColor = Color.White;
+
+            this.Size = new Size(sizeX, sizeY);
             startSimulation = new Button
             {
                 Size = buttonSize,
-                Location = new Point(sizeX, sizeY),
+                Location = new Point(sizeX - buttonSize.Width, sizeY - buttonSize.Height + distanceButtons),
                 Text = "Start Simulation"
             };
             stopSimulation = new Button
             {
                 Size = buttonSize,
-                Location = new Point(sizeX, sizeY + 40),
+                Location = new Point(sizeX - buttonSize.Width, sizeY - buttonSize.Height),
                 Text = "Stop Simulation"
             };
             nextStep = new Button
             {
                 Size = buttonSize,
-                Location = new Point(sizeX, sizeY + 80),
+                Location = new Point(sizeX - buttonSize.Width, sizeY - buttonSize.Height - distanceButtons),
                 Text = "Next Step"
             };
 
@@ -50,16 +54,19 @@ namespace ConsoleApp1.Ecosystem
             this.Controls.Add(startSimulation);
             this.Controls.Add(stopSimulation);
             this.Controls.Add(nextStep);
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 100;
-            startSimulation.Click += new EventHandler(TimerClick); // works for timer rach 0.1 second
+            this.Controls.Add(picBox);
+            this.timer.Enabled = true;
+            this.timer.Interval = 100;
+            startSimulation.Click += new EventHandler(StartSimulationClick);
             stopSimulation.Click += new EventHandler(StopAnimationClick);
             nextStep.Click += new EventHandler(NextStepClick);
         }
 
-        private void CreationsMethods()
+        private void CreationsMethods(object sender, PaintEventArgs e)
         {
-            creations.WriteLogsInConsole();
+            dc = e.Graphics;
+          //  creations.WriteLogsInConsole();
+            base.OnPaint(e);
             creations.PaintAllAnimals(dc);
             creations.PaintAllPlants(dc);
         }
@@ -67,29 +74,29 @@ namespace ConsoleApp1.Ecosystem
         private void NextStepClick(object sender, EventArgs e)
         {
             this.Refresh();
-            this.timer1.Stop();
+            this.timer.Stop();
             creations.ecoStructure.Action();
-            CreationsMethods();
+            picBox.Paint += new System.Windows.Forms.PaintEventHandler(CreationsMethods);
         }
 
         private void StopAnimationClick(object sender, EventArgs e)
         {
             this.Refresh();
-            this.timer1.Stop();
-            CreationsMethods();
+            this.timer.Stop();
         }
 
-        private void TimerClick(object sender, EventArgs e)
+        private void StartSimulationClick(object sender, EventArgs e)
         {
-            if (!timer1.Enabled) timer1.Start();
-            this.timer1.Tick += new EventHandler(ButtonClick);
+            if (!timer.Enabled) timer.Start();
+            this.timer.Tick += new EventHandler(AnimateClick);
         }
 
-        private void ButtonClick(object sender, EventArgs e)
+        private void AnimateClick(object sender, EventArgs e)
         {
             this.Refresh();
             creations.ecoStructure.Action();
-            CreationsMethods();
+            picBox.Paint += new System.Windows.Forms.PaintEventHandler(CreationsMethods);
+            picBox.Paint -= new System.Windows.Forms.PaintEventHandler(CreationsMethods);
         }
 
 
@@ -97,10 +104,11 @@ namespace ConsoleApp1.Ecosystem
         {
             this.SuspendLayout();
             // 
-            // Window
+            // WindowHandler
             // 
-            this.ClientSize = new System.Drawing.Size(900, 550);
-            this.Name = "Simulation";
+            this.ClientSize = new System.Drawing.Size(807, 546);
+            this.Name = "WindowHandler";
+            this.Text = "Ecosystem simulation";
             this.ResumeLayout(false);
 
         }

@@ -18,8 +18,6 @@ namespace ConsoleApp1.Ecosystem
 
         public void WriteLogsInConsole()
         {
-            //for (int j = 0; j < 20; j++)
-            //{
             for (int i = 0; i < ecoStructure.world.animals.Count(); i++) // checking "logs" for each creature
             {
                 Console.WriteLine("Animal " + i + ".: " +
@@ -39,13 +37,15 @@ namespace ConsoleApp1.Ecosystem
                         ecoStructure.world.plants[i].age);
                 }
                 Console.WriteLine("-----------------------------------------");
-            //    ecoStructure.Action();
-          //  }
         }
 
         public void PaintAllAnimals(Graphics g)
         {
             foreach (var animal in ecoStructure.world.animals)
+            {
+                animal.PaintAnimal(g);
+            }
+            foreach (var animal in ecoStructure.world.alphaAnimals)
             {
                 animal.PaintAnimal(g);
             }

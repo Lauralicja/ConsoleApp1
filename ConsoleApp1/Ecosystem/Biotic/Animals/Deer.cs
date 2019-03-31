@@ -20,12 +20,14 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
             hunger = 120.0f;
             isAlive = true;
             isCarnivore = false;
+            random = new Random();
         }
 
 
         override public void SearchForEnemies(World world)
         {
-                for (int j = 0; j < world.animals.Count; j++)
+            int size = world.animals.Count();
+                for (int j = 0; j < size; j++)
                 {
                     if (world.animals[j].name == "Wolf")
                     {
@@ -45,16 +47,17 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
         {
             if (hunger <= 80.0f)
             {
-                int closest = 0;
-                for (int j = 0; j < world.plants.Count; j++)
+                
+                int closest = world.sizeX*world.sizeY;
+                for (int j = 0; j < world.plants.Count(); j++)
                 {
-                    int preyX = world.plants[j].x;
+                    int preyX = world.plants[j].x; // TODO: out of range exception?
                     int preyY = world.plants[j].y;
 
                     if (world.plants[j].name == "Grass") // im pretty sure they don't eat grass, just for the sake of checking 
                     {
                         double distance = Math.Pow(preyX - x, 2) + Math.Pow(preyY - y, 2);
-                        if (Math.Pow(preyX - x, 2) + Math.Pow(preyY - y, 2) >= closest) // temporary -> without any obstacles and in straight line
+                        if (Math.Pow(preyX - x, 2) + Math.Pow(preyY - y, 2) <= closest) // temporary -> without any obstacles and in straight line
                         {
                             closest = (int)distance;
                             if (x > preyX)
@@ -79,7 +82,7 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
                             }
                             if (x == preyX && y == preyY)
                             {
-                                Eat(world);
+                                Eat();
                                 world.plants.Remove(world.plants[j]);
                             }
                         }
@@ -88,16 +91,15 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
             }
         }
 
-        override public void Eat(World world)
+        override public void Eat()
         {
             hunger += 10;
         }
 
         override public void GetHungry()
         {
-            hunger -= 5;
+            hunger -= 0.5f;
         }
-
 
     }
     }

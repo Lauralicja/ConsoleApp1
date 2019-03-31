@@ -20,7 +20,7 @@ namespace ConsoleApp1.Ecosystem.Biotic
         public int age;
         public int hasSeed;
 
-        virtual public void Grow(World world) { } // nie mam na to pomyslu tbh jeszcze
+        virtual public void Grow(World world) { }
         virtual public void Age() { age++;  }
 
         public bool CheckForSpace(World world, int directionX, int directionY) // true -> can plant a seed
@@ -31,8 +31,9 @@ namespace ConsoleApp1.Ecosystem.Biotic
             {
                 if (this != world.plants[i])
                 {
-                    if (x + directionX == world.plants[i].x ||
-                        y + directionY == world.plants[i].y)
+                    if ((x + directionX == world.plants[i].x && y == world.plants[i].y) ||
+                        (y + directionY == world.plants[i].y && x == world.plants[i].x) ||
+                        (x + directionX == world.plants[i].x && y + directionY == world.plants[i].y))
                     {
                         isFree = false; break;
                     }

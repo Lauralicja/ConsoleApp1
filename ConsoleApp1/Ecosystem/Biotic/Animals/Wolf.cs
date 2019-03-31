@@ -20,11 +20,12 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
             hunger = 80.0f;
             isAlive = true;
             isCarnivore = true;
-         }
+            random = new Random();
+        }
 
         public override void Hunt(World world)
         {
-            if(hunger <= 60.0f)
+            if (hunger <= 60.0f)
             {
                 int closest = 0;
                 for (int j = 0; j < world.animals.Count; j++)
@@ -35,8 +36,8 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
                     {
                         if (Math.Pow(preyX - x, 2) + Math.Pow(preyY - y, 2) >= closest) // temporary -> without any obstacles and in straight line
                         {
-                            
-                            if(x > preyX)
+
+                            if (x > preyX)
                             {
                                 if (x == 1) x = 1;
                                 else x--;
@@ -56,25 +57,26 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
                                 if (y == world.sizeY) y = world.sizeY;
                                 else y++;
                             }
-                            if(x == preyX && y == preyY)
+                            if (x == preyX && y == preyY)
                             {
-                                Eat(world);
+                                Eat();
                                 world.animals.Remove(world.animals[j]);
                             }
                         }
                     }
                 }
             }
+            else WalkAround();
         }
 
-        override public void Eat(World world)
+        override public void Eat()
         {
             hunger += 25;
         }
 
         override public void GetHungry()
         {
-            hunger -= 10;
+            hunger -= 0.3f;
         }
 
 

@@ -32,11 +32,15 @@ namespace ConsoleApp1.Ecosystem.Biotic.Plants
 
         public override void Grow(World world)
         {
-            if(age >= 2)
+            if(age >= 20 && age <= 40)
             {
                 hasSeed++;
             }
-            if (hasSeed >= 3)
+            else if (age > 40)
+            {
+                world.plants.Remove(this);
+            }
+            if (hasSeed >= 10)
             {
                 hasSeed = 0;
                 bool canPlant;

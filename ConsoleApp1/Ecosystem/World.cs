@@ -10,10 +10,11 @@ namespace ConsoleApp1.Ecosystem
 {
     class World
     {
-        public int sizeX = 250;
-        public int sizeY = 250;
+        public int sizeX = 600;
+        public int sizeY = 400;
         public List<Animal> animals = new List<Animal>();
         public List<Plant> plants = new List<Plant>();
+        public List<Animal> alphaAnimals = new List<Animal>();
 
         public void AddAnimal(Animal animal)
         {
@@ -25,6 +26,10 @@ namespace ConsoleApp1.Ecosystem
             plants.Add(plant);
         }
 
+        public void AddAlphaAnimal(Animal animal)
+        {
+            alphaAnimals.Add(animal);
+        }
 
 
     }
