@@ -94,6 +94,25 @@ namespace ConsoleApp1.Ecosystem.Biotic
             Follow(myAlpha.x, myAlpha.y);
         }
 
+        protected Plant FindClosestPlant(World world) {
+            double closestPreyDistance = world.sizeX * world.sizeY;
+            Plant closestPrey = null;
+            for (int j = 0; j < world.plants.Count(); j++) {
+                Plant prey = world.plants[j];  // TODO: out of range exception?
+                if (world.plants[j].name == "Grass") // im pretty sure they don't eat grass, just for the sake of checking 
+                {
+                    double distance = Math.Pow(prey.x - x, 2) + Math.Pow(prey.y - y, 2);
+                    if (distance <= closestPreyDistance) // temporary -> without any obstacles and in straight line
+                    {
+                        closestPreyDistance = distance;
+                        closestPrey = prey;
+                    }
+                }
+            }
+
+            return closestPrey;
+        }
+
         private void Follow(int x, int y)
         {
             if(this.x == x) // they are already in the same vertical line

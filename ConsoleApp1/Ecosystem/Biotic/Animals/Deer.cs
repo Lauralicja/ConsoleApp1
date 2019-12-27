@@ -48,22 +48,7 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
             if (hunger <= 80.0f)
             {
                 // Find closest prey
-                double closestPreyDistance = world.sizeX*world.sizeY;
-                Plant closestPrey = null;
-                for (int j = 0; j < world.plants.Count(); j++)
-                {
-                    Plant prey = world.plants[j];  // TODO: out of range exception?
-                    if (world.plants[j].name == "Grass") // im pretty sure they don't eat grass, just for the sake of checking 
-                    {
-                        double distance = Math.Pow(prey.x - x, 2) + Math.Pow(prey.y - y, 2);
-                        if (distance <= closestPreyDistance) // temporary -> without any obstacles and in straight line
-                        {
-                            closestPreyDistance = distance;
-                            closestPrey = prey;
-                        }
-                    }
-                }
-
+                Plant closestPrey = FindClosestPlant(world);
                 if (closestPrey != null) {
                     // Follow horizontally
                     if (x > closestPrey.x) {
