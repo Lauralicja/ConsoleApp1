@@ -47,45 +47,27 @@ namespace ConsoleApp1.Ecosystem.Biotic.Animals
         {
             if (hunger <= 80.0f)
             {
-                
-                int closest = world.sizeX*world.sizeY;
-                for (int j = 0; j < world.plants.Count(); j++)
-                {
-                    int preyX = world.plants[j].x; // TODO: out of range exception?
-                    int preyY = world.plants[j].y;
+                // Find closest prey
+                Plant closestPrey = FindClosestPlant(world);
+                if (closestPrey != null) {
+                    // Follow horizontally
+                    if (x > closestPrey.x) {
+                        if (x != 1) x--;
+                    } else {
+                        if (x != world.sizeX) x++;
+                    }
 
-                    if (world.plants[j].name == "Grass") // im pretty sure they don't eat grass, just for the sake of checking 
-                    {
-                        double distance = Math.Pow(preyX - x, 2) + Math.Pow(preyY - y, 2);
-                        if (Math.Pow(preyX - x, 2) + Math.Pow(preyY - y, 2) <= closest) // temporary -> without any obstacles and in straight line
-                        {
-                            closest = (int)distance;
-                            if (x > preyX)
-                            {
-                                if (x == 1) x = 1;
-                                else x--;
-                            }
-                            else
-                            {
-                                if (x == world.sizeX) x = world.sizeX;
-                                else x++;
-                            }
-                            if (y > preyY)
-                            {
-                                if (y == 1) y = 1;
-                                else y--;
-                            }
-                            else
-                            {
-                                if (y == world.sizeY) y = world.sizeY;
-                                else y++;
-                            }
-                            if (x == preyX && y == preyY)
-                            {
-                                Eat();
-                                world.plants.Remove(world.plants[j]);
-                            }
-                        }
+                    // Follow vertically
+                    if (y > closestPrey.y) {
+                        if (y != 1) y--;
+                    } else {
+                        if (y != world.sizeY) y++;
+                    }
+
+                    // Eat
+                    if (x == closestPrey.x && y == closestPrey.y) {
+                        Eat();
+                        world.plants.Remove(closestPrey);
                     }
                 }
             }
